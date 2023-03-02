@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'Calculator.dart';
+import 'Results.dart';
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,6 +26,7 @@ class MainPage extends StatelessWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(
           primary: Colors.lightBlueAccent,
+          onPrimary: Colors.white,
           surface: Colors.blueAccent,
         ),
         brightness: Brightness.dark,
@@ -88,82 +93,4 @@ class _CalcContainerState extends State<CalcContainer> {
 
 
 
-class Results extends StatefulWidget {
-  const Results({Key? key}) : super(key: key);
 
-  @override
-  State<Results> createState() => _ResultsState();
-}
-
-class _ResultsState extends State<Results> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: const [
-        Text("FIRST TEXT"),
-        Text("SECOND TEXT"),
-      ],
-    );
-  }
-}
-
-
-
-
-class Calculator extends StatefulWidget {
-  const Calculator({Key? key}) : super(key: key);
-
-  @override
-  State<Calculator> createState() => _CalculatorState();
-}
-
-class _CalculatorState extends State<Calculator> {
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 4,
-      crossAxisSpacing: 3,
-      mainAxisSpacing: 3,
-      children: const [
-        CalcButton(btnTxt: "AC"),
-        CalcButton(btnTxt: "AC"),
-        CalcButton(btnTxt: "DEL"),
-        CalcButton(btnTxt: "/"),
-        CalcButton(btnTxt: "1"),
-        CalcButton(btnTxt: "2"),
-        CalcButton(btnTxt: "3"),
-        CalcButton(btnTxt: "x"),
-        CalcButton(btnTxt: "4"),
-        CalcButton(btnTxt: "5"),
-        CalcButton(btnTxt: "6"),
-        CalcButton(btnTxt: "+"),
-        CalcButton(btnTxt: "7"),
-        CalcButton(btnTxt: "8"),
-        CalcButton(btnTxt: "9"),
-        CalcButton(btnTxt: "-"),
-        CalcButton(btnTxt: "0"),
-        CalcButton(btnTxt: "."),
-        CalcButton(btnTxt: "="),
-        CalcButton(btnTxt: "="),
-      ],
-    );
-  }
-}
-
-
-
-class CalcButton extends StatelessWidget {
-  final String btnTxt;
-
-  const CalcButton({required String this.btnTxt});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {  },
-      child: Text(btnTxt),
-    );
-  }
-}
