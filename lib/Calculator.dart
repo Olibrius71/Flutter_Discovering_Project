@@ -77,7 +77,7 @@ class CalcNumber extends StatelessWidget {
       child: Text(
         btnTxt,
         style: const TextStyle(
-          fontSize: 28,
+          fontSize: 33,
         ),
       ),
     );
@@ -97,9 +97,9 @@ class CalcOperator extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       child: Text(
-        operation.name,
+        btnTxt,
         style: const TextStyle(
-          fontSize: 28,
+          fontSize: 30,
         ),
       ),
     );
