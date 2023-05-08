@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Calculator.dart';
+import 'ResultHandler.dart';
 import 'Results.dart';
 
 
@@ -65,17 +66,19 @@ class CalcContainer extends StatefulWidget {
 }
 
 class _CalcContainerState extends State<CalcContainer> {
+  final ResultHandler resultHandler = ResultHandler();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
+      children: <Widget>[
         Expanded(
           flex: 1,
           child: FractionallySizedBox(
             widthFactor: 0.9,
             heightFactor: 1.0,
-            child: Results(),
+            child: Results(resultHandler: resultHandler,),
           ),
         ),
         Expanded(
@@ -83,7 +86,7 @@ class _CalcContainerState extends State<CalcContainer> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             heightFactor: 1.0,
-            child: Calculator(),
+            child: Calculator(resultHandler: resultHandler),
           ),
         ),
       ],

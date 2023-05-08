@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_first/ResultHandler.dart';
 
 
 
@@ -16,19 +19,29 @@ enum Operations {
 
 
 class Calculator extends StatefulWidget {
-  const Calculator({Key? key}) : super(key: key);
+  final ResultHandler resultHandler;
+
+  const Calculator({Key? key, required this.resultHandler}) : super(key: key);
 
   @override
   State<Calculator> createState() => _CalculatorState();
 }
 
 class _CalculatorState extends State<Calculator> {
-  double? previousNumber;
-  double? currentNumber;
+  String? previousNumber;
+  String? currentNumber;
   Operations? operation;
 
-  void handleButton() {
+  void handleNumberPressed(String numberPressed) {
+    setState(() {
+      widget.resultHandler.addNumber(numberPressed);
+      print(widget.resultHandler.toString());
+    });
+    print("nb: $numberPressed");
+  }
 
+  void handleOperatorPressed(Operations operatorPressed) {
+    print("operator: $operatorPressed");
   }
 
   @override
@@ -37,27 +50,27 @@ class _CalculatorState extends State<Calculator> {
       crossAxisCount: 4,
       crossAxisSpacing: 3,
       mainAxisSpacing: 3,
-      children: const [
-        CalcOperator(btnTxt: "AC", operation: Operations.reset),
-        CalcOperator(btnTxt: "AC", operation: Operations.reset),
-        CalcOperator(btnTxt: "DEL", operation: Operations.delete),
-        CalcOperator(btnTxt: "/", operation: Operations.divide),
-        CalcNumber(btnTxt: "1"),
-        CalcNumber(btnTxt: "2"),
-        CalcNumber(btnTxt: "3"),
-        CalcOperator(btnTxt: "x", operation: Operations.multiply),
-        CalcNumber(btnTxt: "4"),
-        CalcNumber(btnTxt: "5"),
-        CalcNumber(btnTxt: "6"),
-        CalcOperator(btnTxt: "+", operation: Operations.add),
-        CalcNumber(btnTxt: "7"),
-        CalcNumber(btnTxt: "8"),
-        CalcNumber(btnTxt: "9"),
-        CalcOperator(btnTxt: "-", operation: Operations.substract),
-        CalcNumber(btnTxt: "0"),
-        CalcNumber(btnTxt: "."),
-        CalcOperator(btnTxt: "=", operation: Operations.equals),
-        CalcOperator(btnTxt: "=", operation: Operations.equals),
+      children: [
+        CalcOperator(btnTxt: "AC", operation: Operations.reset, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "AC", operation: Operations.reset, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "DEL", operation: Operations.delete, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "/", operation: Operations.divide, calcHandlePressed: handleOperatorPressed),
+        CalcNumber(btnTxt: "1", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "2", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "3", calcHandlePressed: handleNumberPressed),
+        CalcOperator(btnTxt: "x", operation: Operations.multiply, calcHandlePressed: handleOperatorPressed),
+        CalcNumber(btnTxt: "4", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "5", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "6", calcHandlePressed: handleNumberPressed),
+        CalcOperator(btnTxt: "+", operation: Operations.add, calcHandlePressed: handleOperatorPressed),
+        CalcNumber(btnTxt: "7", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "8", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: "9", calcHandlePressed: handleNumberPressed),
+        CalcOperator(btnTxt: "-", operation: Operations.substract, calcHandlePressed: handleOperatorPressed),
+        CalcNumber(btnTxt: "0", calcHandlePressed: handleNumberPressed),
+        CalcNumber(btnTxt: ".", calcHandlePressed: handleNumberPressed),
+        CalcOperator(btnTxt: "=", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "=", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
       ],
     );
   }
@@ -65,15 +78,21 @@ class _CalculatorState extends State<Calculator> {
 
 
 
+
+
 class CalcNumber extends StatelessWidget {
   final String btnTxt;
 
-  const CalcNumber({required String this.btnTxt});
+  final void Function(String) calcHandlePressed;
+
+  const CalcNumber({required this.btnTxt, required this.calcHandlePressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        calcHandlePressed(btnTxt);
+      },
       child: Text(
         btnTxt,
         style: const TextStyle(
@@ -90,12 +109,16 @@ class CalcOperator extends StatelessWidget {
   final String btnTxt;
   final Operations operation;
 
-  const CalcOperator({required String this.btnTxt,required Operations this.operation});
+  final void Function(Operations) calcHandlePressed;
+
+  const CalcOperator({required this.btnTxt,required this.operation, required this.calcHandlePressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        calcHandlePressed(operation);
+      },
       child: Text(
         btnTxt,
         style: const TextStyle(

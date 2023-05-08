@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'ResultHandler.dart';
+
 
 
 class Results extends StatefulWidget {
-  const Results({Key? key}) : super(key: key);
+  final ResultHandler resultHandler;
+
+  const Results({Key? key, required this.resultHandler}) : super(key: key);
 
   @override
   State<Results> createState() => _ResultsState();
@@ -21,16 +25,16 @@ class _ResultsState extends State<Results> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: const [
+        children: [
           Text(
-            "FIRST TEXT",
-            style: TextStyle(
+            widget.resultHandler.currentNumber ?? "",
+            style: const TextStyle(
               fontSize: 31,
             ),
           ),
-          Text(
-            "SECOND TEXT",
-            style: TextStyle(
+           Text(
+             widget.resultHandler.currentNumber ?? "SECOND TEXT",
+            style: const TextStyle(
               fontSize: 35,
             ),
           ),
