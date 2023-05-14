@@ -26,17 +26,21 @@ class _ResultsState extends State<Results> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            widget.resultHandler.currentNumber ?? "",
-            style: const TextStyle(
-              fontSize: 31,
-            ),
+          ValueListenableBuilder<String>(
+            valueListenable: widget.resultHandler.currentNumber,
+            builder: (BuildContext context, String value, Widget? child) {
+              return Text('Attribute Value: $value',
+                style: const TextStyle(
+                  fontSize: 35,
+                ),);
+            },
           ),
+
            Text(
-             widget.resultHandler.currentNumber ?? "SECOND TEXT",
-            style: const TextStyle(
-              fontSize: 35,
-            ),
+             "zzz ",
+             style: const TextStyle(
+               fontSize: 35,
+             ),
           ),
         ],
     )

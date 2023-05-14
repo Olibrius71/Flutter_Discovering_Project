@@ -68,6 +68,8 @@ class CalcContainer extends StatefulWidget {
 class _CalcContainerState extends State<CalcContainer> {
   final ResultHandler resultHandler = ResultHandler();
 
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,7 +80,7 @@ class _CalcContainerState extends State<CalcContainer> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             heightFactor: 1.0,
-            child: Results(resultHandler: resultHandler,),
+            child: Results(resultHandler: resultHandler),
           ),
         ),
         Expanded(

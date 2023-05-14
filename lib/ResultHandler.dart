@@ -1,28 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_first/Calculator.dart';
 
 
 class ResultHandler {
-  String? previousNumber;
-  String? currentNumber;
+  ValueNotifier<String> previousNumber = ValueNotifier<String>("");
+  ValueNotifier<String> currentNumber = ValueNotifier<String>("");
 
   Operations? operation;
 
   ResultHandler() {
-    previousNumber = null;
-    currentNumber = null;
     operation = null;
   }
 
   void addNumber(String newNumberOrPoint) {
-    if (currentNumber != null) {
-      currentNumber = currentNumber.toString() + newNumberOrPoint;
-      return;
-    }
-    currentNumber = newNumberOrPoint;
+    currentNumber.value = currentNumber.value + newNumberOrPoint;
+    return;
   }
 
   @override
   String toString() {
-    return "previousNumber = $previousNumber\n currentNumber = $currentNumber\n operation = $operation";
+    return "previousNumber = ${previousNumber.value}\n currentNumber = ${currentNumber.value}\n operation = $operation";
   }
 }
