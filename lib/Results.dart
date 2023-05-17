@@ -29,18 +29,21 @@ class _ResultsState extends State<Results> {
           ValueListenableBuilder<String>(
             valueListenable: widget.resultHandler.currentNumber,
             builder: (BuildContext context, String value, Widget? child) {
-              return Text('Attribute Value: $value',
+              return Text(value,
                 style: const TextStyle(
-                  fontSize: 35,
+                  fontSize: 31,
                 ),);
             },
           ),
-
-           Text(
-             "zzz ",
-             style: const TextStyle(
-               fontSize: 35,
-             ),
+          ValueListenableBuilder<String>(
+            valueListenable: widget.resultHandler.previousNumber,
+            builder: (BuildContext context, String value, Widget? child) {
+              return Text(value,
+                style: const TextStyle(
+                  fontSize: 35,
+                ),
+              );
+            },
           ),
         ],
     )

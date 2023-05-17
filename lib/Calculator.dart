@@ -35,13 +35,13 @@ class _CalculatorState extends State<Calculator> {
   void handleNumberPressed(String numberPressed) {
     setState(() {
       widget.resultHandler.addNumber(numberPressed);
-      print(widget.resultHandler.toString());
     });
-    print("nb: $numberPressed");
   }
 
   void handleOperatorPressed(Operations operatorPressed) {
-    print("operator: $operatorPressed");
+    setState(() {
+      widget.resultHandler.handleOperator(operatorPressed);
+    });
   }
 
   @override
@@ -50,6 +50,8 @@ class _CalculatorState extends State<Calculator> {
       crossAxisCount: 4,
       crossAxisSpacing: 3,
       mainAxisSpacing: 3,
+      childAspectRatio: 0.92,
+
       children: [
         CalcOperator(btnTxt: "AC", operation: Operations.reset, calcHandlePressed: handleOperatorPressed),
         CalcOperator(btnTxt: "AC", operation: Operations.reset, calcHandlePressed: handleOperatorPressed),
@@ -69,8 +71,8 @@ class _CalculatorState extends State<Calculator> {
         CalcOperator(btnTxt: "-", operation: Operations.substract, calcHandlePressed: handleOperatorPressed),
         CalcNumber(btnTxt: "0", calcHandlePressed: handleNumberPressed),
         CalcNumber(btnTxt: ".", calcHandlePressed: handleNumberPressed),
-        CalcOperator(btnTxt: "=", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
-        CalcOperator(btnTxt: "=", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "==", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
+        CalcOperator(btnTxt: "==", operation: Operations.equals, calcHandlePressed: handleOperatorPressed),
       ],
     );
   }
@@ -109,6 +111,7 @@ class CalcOperator extends StatelessWidget {
   final String btnTxt;
   final Operations operation;
 
+
   final void Function(Operations) calcHandlePressed;
 
   const CalcOperator({required this.btnTxt,required this.operation, required this.calcHandlePressed});
@@ -122,7 +125,7 @@ class CalcOperator extends StatelessWidget {
       child: Text(
         btnTxt,
         style: const TextStyle(
-          fontSize: 30,
+          fontSize: 26,
         ),
       ),
     );
